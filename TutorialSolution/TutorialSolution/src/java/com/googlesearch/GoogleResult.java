@@ -80,5 +80,4 @@ public class GoogleResult {
         this.link = link;
     }
     
-    
 }

@@ -24,7 +24,7 @@
 package com.twitter;
 
 /**
- *
+ * Status class for Twitter results object.
  * @author Jian
  */
 public class Status {

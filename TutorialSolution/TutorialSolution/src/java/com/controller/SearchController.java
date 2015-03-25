@@ -34,8 +34,8 @@ import java.util.List;
 import org.codehaus.jettison.json.JSONException;
 
 /**
- * This search controller is just to parse all the JSON files and display them
- * at the intended location.
+ * This search controller is just to parse all the returned files and display
+ * them at the intended location.
  *
  * @author Jian
  */
@@ -44,9 +44,13 @@ public class SearchController {
     public static String displayGoogleSearch(String query) throws JSONException {
         String str = "<h3 class=\"text-center\"><i class=\"fa fa-google\">&nbsp;</i>Google Custom Search</h3>";
         ArrayList<GoogleResult> results = GoogleSearch.configure(query);
+
         if (results.isEmpty()) {
-            str += "<div class=\"label label-info\">No search results found.</div>";
+            str += "<div class=\"alert alert-info\">No search results found.</div>";
             return str;
+        }
+        if (results.size() > 5) {
+            results.subList(5, results.size()).clear();
         }
         str += "<div class=\table-responsive\">";
         str += "<table class=\"table table-striped\">";
@@ -59,20 +63,15 @@ public class SearchController {
     public static String displayYouTube(String query) {
         ArrayList<YouTubeInfo> results = YouTubeAPI.configure(query);
         String str = " <h3 class=\"text-center\"><i class=\"fa fa-youtube-square\">&nbsp;</i>Youtube Video</h3>";
-
         if (results.isEmpty()) {
-            str += "<div class=\"label label-info\">";
-            str += "No search results found.";
-            str += "</div>";
+            str += "<div class=\"alert alert-info\">No search results found.</div>";
             return str;
         }
         for (YouTubeInfo status : results) {
             str += "<div class=\"embed-responsive embed-responsive-16by9\">";
             str += "<iframe class=\"embed-responsive-item\" src=https://www.youtube.com/embed/" + status.getId() + "></iframe>";
-            str += "</div>";
-            str += "<div class=\"text-center\">";
-            str += "<strong>" + status.getTitle() + "&nbsp;</strong><br /><br />";
-            str += "</div>";
+            str += "</div><div class=\"text-center\">";
+            str += "<strong>" + status.getTitle() + "&nbsp;</strong><br /><br /></div>";
         }
         return str;
     }
@@ -82,10 +81,11 @@ public class SearchController {
         sb.append(" <h3 class=\"text-center\"><i class=\"fa fa-twitter-square\"></i>&nbsp;Comments from Twitter</h3>");
         List<Status> tweet = TwitterSearch.configure(query);
         if (tweet.isEmpty()) {
-            sb.append("<span class=\"label label-info\">No Tweets results found.</span>");
+            sb.append("<div class=\"alert alert-info\">No Tweets results found.</div>");
             return sb.toString();
         }
 
+        // Reduce the number of tweets via jsp
         if (tweet.size() > 5) {
             tweet.subList(5, tweet.size()).clear();
         }

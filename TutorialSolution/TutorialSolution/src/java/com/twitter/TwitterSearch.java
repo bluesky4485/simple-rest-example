@@ -8,9 +8,6 @@ import com.rest.RestConnection;
 import com.rest.RestResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
@@ -59,7 +56,7 @@ public class TwitterSearch {
             }
             return results;
         } catch (OAuthMessageSignerException | OAuthExpectationFailedException | OAuthCommunicationException | IOException | JSONException ex) {
-        }
-        return results;
+            return results;
+        } 
     }
 }

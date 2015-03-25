@@ -50,10 +50,7 @@ public class GoogleSearch {
             RestResponse response;
             response = conn.get();
             JSONObject json = new JSONObject(response.getDataAsString());
-
-            //JSONObject json = GoogleSearch.configure(query);
             JSONArray items = json.getJSONArray("items");
-            //ArrayList<SearchResult> results = new ArrayList<>();
             for (int i = 0; i < items.length(); i++) {
                 JSONObject result = items.getJSONObject(i);
                 results.add(new GoogleResult(result.getString("title"), result.getString("snippet"), result.getString("link")));
@@ -61,7 +58,6 @@ public class GoogleSearch {
             return results;
         } catch (JSONException | IOException ex) {
         }
-        //Logger.getLogger(GoogleSearch.class.getName()).log(Level.SEVERE, null, ex);
         return results;
     }
 }
