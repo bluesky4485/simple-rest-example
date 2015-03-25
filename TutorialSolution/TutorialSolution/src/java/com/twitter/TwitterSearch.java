@@ -37,7 +37,7 @@ public class TwitterSearch {
             consumer.setTokenWithSecret(OAUTH_TOKEN, OAUTH_TOKEN_SECRET);
             //need to get the value for query variable from the user
             query = query.replaceAll(" ", "%20");
-            String URL = "https://api.twitter.com/1.1/search/tweets.json?q=" + query;
+            String URL = "https://api.twitter.com/1.1/search/tweets.json?q=" + query + "&lang=en";
             System.out.println("--->" + consumer.sign(URL));
             String[][] pathParams = new String[][]{};
             String[][] queryParams = new String[][]{};

@@ -25,6 +25,7 @@ package com.controller;
 
 import com.googlesearch.GoogleResult;
 import com.googlesearch.GoogleSearch;
+import com.sun.xml.bind.xmlschema.StrictWildcardPlug;
 import com.twitter.Status;
 import com.twitter.TwitterSearch;
 import com.youtube.YouTubeAPI;
@@ -42,12 +43,14 @@ import org.codehaus.jettison.json.JSONException;
 public class SearchController {
 
     public static String displayGoogleSearch(String query) throws JSONException {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<h3 class=\"text-center\"><i class=\"fa fa-google\">&nbsp;</i>Google Custom Search</h3>");
         String str = "<h3 class=\"text-center\"><i class=\"fa fa-google\">&nbsp;</i>Google Custom Search</h3>";
         ArrayList<GoogleResult> results = GoogleSearch.configure(query);
 
         if (results.isEmpty()) {
-            str += "<div class=\"alert alert-info\">No search results found.</div>";
-            return str;
+            sb.append("<div class=\"alert alert-info\"><i class=\"fa fa-info-circle\">&nbsp;</i>No search results found.</div>");
+            return sb.toString();
         }
         if (results.size() > 5) {
             results.subList(5, results.size()).clear();
@@ -64,7 +67,7 @@ public class SearchController {
         ArrayList<YouTubeInfo> results = YouTubeAPI.configure(query);
         String str = " <h3 class=\"text-center\"><i class=\"fa fa-youtube-square\">&nbsp;</i>Youtube Video</h3>";
         if (results.isEmpty()) {
-            str += "<div class=\"alert alert-info\">No search results found.</div>";
+            str += "<div class=\"alert alert-info\"><i class=\"fa fa-info-circle\">&nbsp;</i>No search results found.</div>";
             return str;
         }
         for (YouTubeInfo status : results) {
@@ -81,11 +84,10 @@ public class SearchController {
         sb.append(" <h3 class=\"text-center\"><i class=\"fa fa-twitter-square\"></i>&nbsp;Comments from Twitter</h3>");
         List<Status> tweet = TwitterSearch.configure(query);
         if (tweet.isEmpty()) {
-            sb.append("<div class=\"alert alert-info\">No Tweets results found.</div>");
+            sb.append("<div class=\"alert alert-info\"><i class=\"fa fa-info-circle\">&nbsp;</i>No Tweets results found.</div>");
             return sb.toString();
         }
 
-        // Reduce the number of tweets via jsp
         if (tweet.size() > 5) {
             tweet.subList(5, tweet.size()).clear();
         }

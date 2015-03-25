@@ -26,6 +26,7 @@
     Created on : Mar 16, 2015, 8:06:32 PM
     Author     : Jian
 --%>
+<%@page import="java.net.URLEncoder"%>
 <%@page import="com.controller.SearchController"%>
 <%@page import="com.twitter.TwitterSearch"%>
 <%@page import="com.youtube.YouTubeAPI"%>
@@ -59,7 +60,8 @@
             <div class="result"></div>
             <% String search = (String) request.getParameter("submit");
                 if (request.getParameter("submit") != null) {
-                    String query = search.replaceAll(" ", "%20");
+                    String query = URLEncoder.encode(search, "UTF-8");
+                    //String query = search.replaceAll(" ", "%20");
                     out.println("<div class=\"well well-lg\">");
                     out.println(SearchController.displayGoogleSearch(query));
                     out.println("</div>");
