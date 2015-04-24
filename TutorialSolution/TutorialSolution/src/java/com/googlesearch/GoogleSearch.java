@@ -39,8 +39,8 @@ import org.codehaus.jettison.json.JSONObject;
  */
 public class GoogleSearch {
 
-    public static final String API_KEY = "AIzaSyC1R8xtoh4ePsPjomjS34EheQkz1PpA0ME";
-    public static final String SEARCH_ID_cx = "016016692328025561500:ql40nyq7tu0";
+    public static final String API_KEY = "#######";
+    public static final String SEARCH_ID_cx = "#########";
 
     public static ArrayList<GoogleResult> configure(String query) {
         ArrayList<GoogleResult> results = new ArrayList<>();
